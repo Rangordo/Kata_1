@@ -3,27 +3,27 @@ package main
 import "fmt"
 
 // struct -> table with only one column, each can use different types
-type Stack struct {
-	Stack []int
+type Item struct {
+	Item []interface{}
 }
 
 // function with a pointer return (allows to ceate more structs)
-func NewStack() *Stack {
-	stack := Stack{make([]int, 0)}
-	return &stack
+func NewStack() *Item {
+	Item := Item{make([]interface{}, 0)}
+	return &Item
 }
 
-// function adds a new input at the top of the stack (or bottom of the table) LIFO-rule
-func (s *Stack) Push(val int) {
-	s.Stack = append(s.Stack, val)
+// function adds a new input at the top of the Item (or bottom of the table) LIFO-rule
+func (s *Item) Push(val interface{}) {
+	s.Item = append(s.Item, val)
 }
 
 // function returns the latest index's element and delets the latest index afterwards
-func (s *Stack) Pop() (int, bool) {
+func (s *Item) Pop() (interface{}, bool) {
 	if s.IsEmpty() == false {
-		i := len(s.Stack) - 1
-		e := s.Stack[i]
-		s.Stack = s.Stack[:i]
+		i := len(s.Item) - 1
+		e := s.Item[i]
+		s.Item = s.Item[:i]
 		return e, true
 	} else {
 		return 0, false
@@ -31,10 +31,10 @@ func (s *Stack) Pop() (int, bool) {
 }
 
 // function returns the latest index's element
-func (s *Stack) Peek() (int, bool) {
+func (s *Item) Peek() (interface{}, bool) {
 	if s.IsEmpty() == false {
-		i := len(s.Stack) - 1
-		e := s.Stack[i]
+		i := len(s.Item) - 1
+		e := s.Item[i]
 		return e, true
 	} else {
 		return 0, false
@@ -42,8 +42,8 @@ func (s *Stack) Peek() (int, bool) {
 }
 
 // function indicates whether the input is empty
-func (s *Stack) IsEmpty() bool {
-	if len(s.Stack) == 0 {
+func (s *Item) IsEmpty() bool {
+	if len(s.Item) == 0 {
 		return true
 	} else {
 		return false
@@ -51,14 +51,14 @@ func (s *Stack) IsEmpty() bool {
 }
 
 func main() {
-	stack := NewStack()
-	stack.Push(5)
-	stack.Push(10)
-	stack.Push(15)
-	val, _ := stack.Peek()
+	Item := NewStack()
+	Item.Push(5)
+	Item.Push(10)
+	Item.Push("text")
+	val, _ := Item.Peek()
 	fmt.Println(val)
-	val, _ = stack.Pop()
+	val, _ = Item.Pop()
 	fmt.Println(val)
-	isEmpty := stack.IsEmpty()
+	isEmpty := Item.IsEmpty()
 	fmt.Println(isEmpty)
 }
